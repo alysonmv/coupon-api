@@ -22,6 +22,25 @@ docker compose up --build
 ./mvnw test
 ```
 
+## Cobertura de testes (JaCoCo)
+
+O [JaCoCo](https://www.jacoco.org/jacoco/) instrumenta o código durante os testes e mede quais linhas e branches foram efetivamente exercitados. O relatório é gerado automaticamente na fase `test`.
+
+```bash
+./mvnw test          # gera o relatório em target/site/jacoco/index.html
+./mvnw verify        # além de gerar, valida o gate mínimo de cobertura
+```
+
+O relatório é um **arquivo local** (não uma URL `http`). Abra `target/site/jacoco/index.html` direto no navegador — no Windows, use o caminho completo com o prefixo `file:///`, por exemplo:
+
+```
+file:///C:/Projetos/spring/coupon-api/target/site/jacoco/index.html
+```
+
+Há um gate de **80% de cobertura de linhas** (`BUNDLE`) verificado na fase `verify`: se a cobertura cair abaixo desse valor, o build falha. A classe `CouponApiApplication` (bootstrap do Spring) é excluída da medição.
+
+**Cobertura atual: 100% de linhas e branches** (148 linhas, 12 branches — 0 não cobertos).
+
 ## Endpoints
 
 | Método | Rota | Descrição | Resposta |
